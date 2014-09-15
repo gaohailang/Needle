@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                 options : {
                     nodeArgs : ['--debug=5859'],
                     env : {
-                        PORT : '1339'
+                        PORT : '1338'
                     }
                 }
             }
