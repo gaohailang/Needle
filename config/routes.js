@@ -34,7 +34,9 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+
+  '/source/:id/body': 'SourceController.getBody'
 
   /***************************************************************************
   *                                                                          *

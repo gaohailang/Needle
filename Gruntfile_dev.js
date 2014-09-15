@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                     '**/*.js',
                     '!node_modules/**/*.*',
                 ],
-                tasks : ['jshint:test', 'mochaTest'],
+                tasks : ['jshint:test'],
                 options : {
                     spawn : false
                 }
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                 options : {
                     nodeArgs : ['--debug=5859'],
                     env : {
-                        PORT : '1337'
+                        PORT : '1338'
                     }
                 }
             }
