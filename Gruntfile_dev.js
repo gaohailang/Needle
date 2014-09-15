@@ -98,7 +98,7 @@ module.exports = function (grunt) {
                         '!.git*',
                         '!.travis.yml',
                         '!.jshintrc',
-                        '!Gruntfile.js',
+                        '!Gruntfile_dev.js',
                         '!*.sublime*'
                     ]
                 }]
