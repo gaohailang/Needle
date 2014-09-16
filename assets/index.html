@@ -117,7 +117,7 @@
         var itemTemplate = _.template($('#tmpl-item').html());
 
         var renderList = function () {
-            $.ajax('/source').done(function (resp) {
+            $.ajax('/needle/source').done(function (resp) {
                 var fragment = document.createDocumentFragment();
                 _.each(resp, function (source) {
                     fragment.appendChild($(itemTemplate(source))[0]);
@@ -147,7 +147,7 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: '/source',
+                    url: '/needle/source',
                     data: {
                         name: name,
                         body: editor.getText()
@@ -172,7 +172,7 @@
 
                 $.ajax({
                     method: 'PUT',
-                    url: '/source/' + $('#edit-id-input').val(),
+                    url: '/needle/source/' + $('#edit-id-input').val(),
                     data: {
                         name: name,
                         body: editor2.getText()
@@ -190,7 +190,7 @@
 
         $(document).on('click', '.btn-delete', function (evt) {
             $.ajax({
-                url: '/source/' + $(evt.originalEvent.srcElement).data('id'),
+                url: '/needle/source/' + $(evt.originalEvent.srcElement).data('id'),
                 success: function (resp) {
                     var del = confirm('Confirm to delete ' + resp.name + '?');
                     if (del) {
@@ -208,7 +208,7 @@
 
         $(document).on('click', '.btn-edit', function (evt) {
             $.ajax({
-                url: '/source/' + $(evt.originalEvent.srcElement).data('id'),
+                url: '/needle/source/' + $(evt.originalEvent.srcElement).data('id'),
                 success: function (resp) {
                     $('#edit-name-input').val(resp.name);
                     $('#edit-id-input').val(resp.id);
