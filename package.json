@@ -31,8 +31,7 @@
     "grunt-sails-linker": "0.9.5",
     "matchdep" : "0.3.0",
     "newrelic" : "1.10.0",
-    "aws-sdk": "2.0.15",
-    "gzip": "0.0.3"
+    "aws-sdk": "2.0.15"
   },
   "scripts": {
     "start": "node app.js",
