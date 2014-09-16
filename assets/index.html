@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Needel - A lightweight JSON data operation tool</title>
+    <title>Needle - A lightweight JSON data operation tool</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -19,7 +19,7 @@
 <body>
     <div class="jumbotron">
         <div class="container">
-            <h2>Needel</h2>
+            <h2>Needle</h2>
         </div>
     </div>
     <div class="container">
@@ -31,8 +31,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody class="list-table-body">
-            </tbody>
+            <tbody class="list-table-body"></tbody>
         </table>
         <button type="button" class="btn btn-primary" class="btn-add" data-toggle="modal" data-target="#add-modal">Add...</button>
     </div>
@@ -93,7 +92,7 @@
     <script type="text/x-template" id="tmpl-item">
         <tr>
             <td>{{ name }}</td>
-            <td><a class="btn-delete" href="{{ location.protocol + '//' + location.host + '/needle/source/' + id }}">{{ location.protocol + '//' + location.host + '/needle/source/' + id }}</a></td>
+            <td><a class="btn-delete" href="http://s3.cn-north-1.amazonaws.com.cn/web-statics-production/needle/{{ id }}.json">http://s3.cn-north-1.amazonaws.com.cn/web-statics-production/needle/{{ id }}.json</a></td>
             <td>
                 <a href="#" class="btn-delete" data-id="{{ id }}">Delete</a>
                 <a href="#" class="btn-edit" data-id="{{ id }}">Edit</a>
@@ -190,7 +189,7 @@
 
         $(document).on('click', '.btn-delete', function (evt) {
             $.ajax({
-                url: '/needle/source/' + $(evt.originalEvent.srcElement).data('id'),
+                url: '//needlesource/' + $(evt.originalEvent.srcElement).data('id'),
                 success: function (resp) {
                     var del = confirm('Confirm to delete ' + resp.name + '?');
                     if (del) {
