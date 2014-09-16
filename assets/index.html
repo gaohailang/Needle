@@ -189,7 +189,7 @@
 
         $(document).on('click', '.btn-delete', function (evt) {
             $.ajax({
-                url: '//needlesource/' + $(evt.originalEvent.srcElement).data('id'),
+                url: '/needle/source/' + $(evt.originalEvent.srcElement).data('id'),
                 success: function (resp) {
                     var del = confirm('Confirm to delete ' + resp.name + '?');
                     if (del) {
