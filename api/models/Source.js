@@ -16,7 +16,7 @@ module.exports = {
             Key: 'needle/' + source.id + '.json',
             Body: source.body,
             CacheControl: 'no-cache',
-            ContentType: 'application/json',
+            ContentType: 'application/json; charset=UTF-8',
             ACL: 'public-read'
         };
 
@@ -30,7 +30,7 @@ module.exports = {
             Key: 'needle/' + source.id + '.json',
             Body: source.body,
             CacheControl: 'no-cache',
-            ContentType: 'application/json',
+            ContentType: 'application/json; charset=UTF-8',
             ACL: 'public-read'
         };
 
