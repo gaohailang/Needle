@@ -45,8 +45,6 @@ module.exports = {
         };
 
         s3.deleteObject(params, function(err, data) {
-            console.log(err);
-            console.log(data);
             cb();
         });
     }

@@ -147,4 +147,6 @@ module.exports.blueprints = {
 
   // defaultLimit: 30
 
+  jsonp: true
+
 };
