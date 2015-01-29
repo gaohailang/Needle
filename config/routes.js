@@ -32,7 +32,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/source/:id/body': 'SourceController.getBody'
+  '/source/count': 'SourceController.count',
+  '/source/:id/body': 'SourceController.getBody',
+  '/source/page/:page': 'SourceController.getPage'
+
 
   /***************************************************************************
   *                                                                          *

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Needle - A lightweight JSON data operation tool</title>
 
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="google" value="notranslate">
 
     <link rel="stylesheet" href="//static.wdjimg.com/ajax/libs/jsoneditor/3.1.0/jsoneditor.min.css">
     <link rel="stylesheet" href="//static.wdjimg.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
@@ -12,6 +14,9 @@
         #jsoneditor-add,
         #jsoneditor-edit {
             height: 500px;
+        }
+        .btn-add {
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -23,6 +28,12 @@
         </div>
     </div>
     <div class="container">
+        <nav>
+            <ul class="pagination pull-right">
+                <li class="pagination-pre"><a href="#">Previous</span></a></li>
+                <li class="pagination-nxt"><a href="#">Next</span></a></li>
+            </ul>
+        </nav>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -33,7 +44,13 @@
             </thead>
             <tbody class="list-table-body"></tbody>
         </table>
-        <button type="button" class="btn btn-primary" class="btn-add" data-toggle="modal" data-target="#add-modal">Add...</button>
+        <nav>
+            <button type="button" class="btn btn-primary btn-add" data-toggle="modal" data-target="#add-modal">Add...</button>
+            <ul class="pagination pull-right">
+                <li class="pagination-pre"><a href="#">Previous</span></a></li>
+                <li class="pagination-nxt"><a href="#">Next</span></a></li>
+            </ul>
+        </nav>
     </div>
 
     <div id="add-modal" class="modal fade">
@@ -100,6 +117,10 @@
         </tr>
     </script>
 
+    <script type="text/x-template" id="tmpl-pagination">
+        <li class="pagination-num"><a href="#{{ page }}">{{ page }}</a></li>
+    </script>
+
     <script src="//static.wdjimg.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//static.wdjimg.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//static.wdjimg.com/ajax/libs/jsoneditor/3.1.0/jsoneditor.min.js"></script>
@@ -114,15 +135,47 @@
         };
 
         var itemTemplate = _.template($('#tmpl-item').html());
+        var paginationTemplate = _.template($('#tmpl-pagination').html());
 
         var renderList = function () {
-            $.ajax('/needle/source').done(function (resp) {
+            if (document.location.hash !== '') {
+                var page = document.location.hash.slice(1);
+            } else {
+                page = 1;
+            }
+
+            $.ajax('/needle/source/page/' + page).done(function (resp) {
                 var fragment = document.createDocumentFragment();
                 _.each(resp, function (source) {
                     fragment.appendChild($(itemTemplate(source))[0]);
                 });
 
                 $('.list-table-body').html(fragment);
+            });
+
+            $.ajax('/needle/source/count').done(function (resp) {
+                $('.pagination-num').remove();
+
+                var pageCount = Math.ceil(resp / 30);
+                for (var i = pageCount; i > 0; i--) {
+                    $('.pagination-pre').after(paginationTemplate({page: i}));
+                };
+
+                $('.pagination > li').removeClass('active');
+                $('.pagination a[href=#' + page +']').parent('.pagination-num').addClass('active');
+
+                var prePage = page - 1 > 0 ? page - 1 : 1;
+                var nxtPage = page + 1 < pageCount ? page + 1 : pageCount;
+                $('.pagination-pre > a').attr('href','#' + prePage)
+                $('.pagination-nxt > a').attr('href','#' + nxtPage)
+
+                if (parseInt(page) === 1) {
+                    $('.pagination li').removeClass('disabled')
+                    $('.pagination-pre').addClass('disabled')
+                } else if (parseInt(page) === pageCount) {
+                    $('.pagination li').removeClass('disabled')
+                    $('.pagination-nxt').addClass('disabled')
+                }
             });
         };
 
@@ -195,7 +248,7 @@
                     if (del) {
                         $.ajax({
                             method: 'DELETE',
-                            url: '/source/' + resp.id,
+                            url: '/needle/source/' + resp.id,
                             success: function () {
                                 renderList();
                             }
@@ -217,6 +270,10 @@
                 }
             });
         });
+
+        window.addEventListener('hashchange', function (evt) {
+            renderList();
+        })
 
         renderList();
     });
