@@ -11,12 +11,33 @@
     <link rel="stylesheet" href="//static.wdjimg.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
 
     <style type="text/css">
+        .jumbotron {
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .jumbotron h2 {
+            margin-top: 10px;
+        }
+
+        .btn-edit {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
         #jsoneditor-add,
         #jsoneditor-edit {
             height: 500px;
         }
+
         .btn-add {
             margin: 20px 0;
+        }
+
+        footer {
+            padding-top: 30px;
+            font-size: 12px;
+            color: #999;
         }
     </style>
 </head>
@@ -52,6 +73,11 @@
             </ul>
         </nav>
     </div>
+    <footer>
+        <div class="container">
+            建议为你的 Chrome 安装 <a href='https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en' target="_blank">JSONView</a> 插件来浏览 JSON 文件
+        </div>
+    </footer>
 
     <div id="add-modal" class="modal fade">
         <div class="modal-dialog">
@@ -109,10 +135,12 @@
     <script type="text/x-template" id="tmpl-item">
         <tr>
             <td>{{ name }}</td>
-            <td><a class="btn-delete" href="http://s3.cn-north-1.amazonaws.com.cn/web-statics-production/needle/{{ id }}.json">http://s3.cn-north-1.amazonaws.com.cn/web-statics-production/needle/{{ id }}.json</a></td>
+            <td><a target="_blank" href='http://www.wandoujia.com/needle/source/getBody/{{ id }}'>http://www.wandoujia.com/needle/source/getBody/{{ id }}</a>
+            </td>
             <td>
-                <a href="#" class="btn-delete" data-id="{{ id }}">Delete</a>
-                <a href="#" class="btn-edit" data-id="{{ id }}">Edit</a>
+                <a href="javascript:void(0);" class="btn btn-xs btn-success btn-edit" data-id="{{ id }}">Edit</a>
+                <a href="javascript:void(0);" class="btn btn-xs btn-warning btn-delete" data-id="{{ id }}">Delete</a>
+                <a target="_blank" class="btn btn-xs btn-default" href="http://s3.cn-north-1.amazonaws.com.cn/web-statics-production/needle/{{ id }}.json">Source</a>
             </td>
         </tr>
     </script>
