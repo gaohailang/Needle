@@ -34,6 +34,7 @@ module.exports.routes = {
 
   '/source/count': 'SourceController.count',
   '/source/:id/body': 'SourceController.getBody',
+  '/source/:id/json': 'SourceController.getJSON',
   '/source/page/:page': 'SourceController.getPage'
 
 
