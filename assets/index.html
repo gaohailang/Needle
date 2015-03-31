@@ -308,9 +308,13 @@
             });
         });
 
+        $( document ).ajaxError(function(err, jqxhr, settings, thrownError) {
+            window.location.href = '/needle/login/google';
+        });
+
         window.addEventListener('hashchange', function (evt) {
             renderList();
-        })
+        });
 
         renderList();
     });

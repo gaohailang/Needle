@@ -17,7 +17,10 @@
  * The same command-line arguments are supported, e.g.:
  * `node app.js --silent --port=80 --prod`
  */
-var newrelic = require('newrelic');
+
+if (process.env.NODE_ENV == 'production') {
+    require('newrelic');
+}
 
 // Ensure we're in the project directory, so relative paths work as expected
 // no matter where we actually lift from.
@@ -50,7 +53,9 @@ process.chdir(__dirname);
             console.error('Your `.sailsrc` file(s) will be ignored.');
             console.error('To resolve this, run:');
             console.error('npm install rc --save');
-            rc = function () { return {}; };
+            rc = function() {
+                return {};
+            };
         }
     }
 
